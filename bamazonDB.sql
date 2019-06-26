@@ -18,5 +18,5 @@ VALUES ("Spaghetti", "Pasta", 3, 10),
     ("Sashimi", "Fish", 8, 10),
     ("Kit-Kat", "Sweets", 2, 10), 
     ("Hot Dog", "Meat", 3, 10), 
-    ("Steal", "Meat", 7, 10)
+    ("Steak", "Meat", 7, 10)
     ;
