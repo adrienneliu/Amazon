@@ -29,6 +29,11 @@ connection.connect(function (err) {
 var productID;
 var finalProduct; 
 
+var newName; 
+var newCuisine; 
+var newPrice; 
+var newQuantity;
+
 //ask the user what they want to do from manager view point
 function prompt() {
     inquirer.prompt([
@@ -36,7 +41,7 @@ function prompt() {
             type: "list",
             name: "userchoice",
             message: "What would you like to do?",
-            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Quit"]
         }
     ]).then(function (response) {
         //console.log(response.userchoice);
@@ -52,7 +57,10 @@ function prompt() {
                 addInventory();
                 break;
             case "Add New Product":
-
+                productAdd();
+                break;
+            case "Quit":
+                connection.end();
                 break;
 
         }
@@ -153,3 +161,54 @@ function updateProduct(productID, finalProduct) {
 }
 
 //If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
+function productAdd() {
+    console.log("And here we are");
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What food do you want to add to the menu?", 
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What kind of cuisine is it?",
+            name: "cuisine"
+        },
+        {
+            type: "input",
+            message: "How much does it cost?",
+            name: "price",
+            filter: Number
+        },
+        {
+            type: "input", 
+            message: "How many do we have?", 
+            name: "quantity",
+            filter: Number
+        }
+    ]).then(function(response){
+        console.log(response);
+        newName = response.name; 
+        newCuisine = response.cuisine; 
+        newPrice = response.price; 
+        newQuantity = response.quantity;
+
+        //console.log("quan: " + response.quantity)
+        newProduct(newName, newCuisine, newPrice, newQuantity);
+    })
+}
+
+function newProduct(){
+    console.log("time to add");
+    var query = connection.query("INSERT INTO products SET ?", 
+    {
+        product_name: newName,
+        department_name: newCuisine,
+        price: newPrice,
+        stock_quantity: newQuantity 
+    }, function(err, res) {
+        if (err) throw err; 
+        // console.log(res);
+        viewProducts();
+    })
+}
