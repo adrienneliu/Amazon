@@ -6,8 +6,6 @@ var chalk = require("chalk");
 
 const chalkAnimation = require('chalk-animation');
 
-
-
 //table 
 var table = new Table({
     head: ['ID', 'Item', 'Cuisine', 'Price', 'Quantity']
@@ -42,7 +40,7 @@ function initialDisplay() {
         if (err) throw err;
 
         //insert story line here ... REPLACE WORDS
-        console.log("\n WHAT DO YOU WANNA EAT \n");
+        console.log("\n Welcome to Adrienne's Wonderful Terminal of Food. Please take your time, browse around. \nLook at what we've got... we have the best quality and prices on everything and \nanything you can imagine (food related!). You wish for it, we'll make it. Fresh out of the oven...just for you. \n");
 
         for (var i = 0; i < res.length; i++) {
             // console.log(res[i].item_id + "| " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
@@ -72,6 +70,7 @@ function prompt() {
             name: "amount",
             filter: Number
         }
+      
     ]).then(function (result) {
         //console.log(result.userPick);
         //console.log(result.amount);
@@ -85,11 +84,11 @@ function prompt() {
 
             quantityFinal = res[0].stock_quantity - result.amount;
 
-            if (quantityFinal < 0) {
-                console.log("Sorry, we ran out!");
+            if (quantityFinal < 0 || result.amount > res[0].stock_quantity) {
+                console.log("Sorry, we can't do that! Talk to our manager!");
                 prompt();
             } else {
-                console.log("You ordered " + result.amount + " " + (chalk.blue(res[0].product_name)) + ".\n Thank you, that wil be $" + (chalk.green(result.amount * res[0].price)) + "."
+                console.log("You ordered " + result.amount + " " + (chalk.blue(res[0].product_name)) + ".\n Thank you, that wil be $" + (chalk.black.bgGreen(result.amount * res[0].price)) + "."
                 );
                 updateProduct(quantityFinal, productID);
             }
@@ -135,8 +134,29 @@ function readDisplay() {
 
         }
         console.log(table.toString());
-        connection.end();
-        chalkAnimation.glitch("Thanks for your purchase!");
+        //connection.end();
+        endchoice();
+        
 
+    }); 
+}
+
+function endchoice() {
+    //console.log("THISIS THE END")
+    inquirer.prompt([
+        {
+            type: "list", 
+            message: "\nWant to order more?", 
+            choices: ["Yes!", "No ... \n"],
+            name: "endchoice"
+        }
+    ]).then(function(response){
+        ///console.log(response)
+        if (response.endchoice === "Yes!") {
+            prompt();
+        }
+        else{
+            chalkAnimation.glitch("Thanks for your purchase!");
+        }
     })
 }

@@ -23,12 +23,12 @@ VALUES ("Spaghetti", "Italian", 7.50, 50),
     ("Blueberry Pancake", "American", 5.50, 50), 
     ("Joey Tacos", "Mexican", 1.50, 8),
     ("Chloe Hot Pot", "Chinese", 18.99, 20),
-    ("Shabu Shabu", "Japanese", 23, 20), 
-    ("Reg Biryani", "Indian", 10.00, 35),
-    ("Esar's Mom's Biryani", "Indian", 999, 1),
-    ("Mac and Cheese", "American", 6.00, 100),
-    ("XLB", "Chinese", 6.00, 100),
-    ("Green Curry", "Thai", 7.00, 30)
+    -- ("Shabu Shabu", "Japanese", 23, 20), 
+    -- ("Reg Biryani", "Indian", 10.00, 35),
+    -- ("Esar's Mom's Biryani", "Indian", 999, 1),
+    -- ("Mac and Cheese", "American", 6.00, 100),
+    -- ("XLB", "Chinese", 6.00, 100),
+    -- ("Green Curry", "Thai", 7.00, 30)
 
     ;
 
